@@ -1,6 +1,21 @@
-#ifndef MatchMaker_hpp
-#define MatchMaker_hpp
+#ifndef MATCHMAKER
+#define MATCHMAKER
 
-#include <stdio.h>
+#include <iostream>
+#include "PersonProfile.h"
+#include "MemberDatabase.h"
+#include "AttributeTranslator.h"
 
-#endif /* MatchMaker_hpp */
+class MatchMaker
+{
+public:
+    MatchMaker(const MemberDatabase& mdb, const AttributeTranslator& at);
+    ~MatchMaker();
+    std::vector<EmailCount> IdentifyRankedMatches(std::string email, int threshold) const;
+private:
+    
+    
+};
+
+
+#endif /* MATCHMAKER */

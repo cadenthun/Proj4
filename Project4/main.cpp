@@ -22,6 +22,8 @@ if (!result.empty()) {
  }
 }
 
+
+
 /*
 const std::string MEMBERS_FILE    = "members.txt";
 const std::string TRANSLATOR_FILE = "translator.txt";
@@ -99,6 +101,18 @@ bool findMatches(const MemberDatabase& mdb, const AttributeTranslator& at)
 
 int main()
 {
+    //test for FindMatchingMembers
+    
+    MemberDatabase a;
+    a.LoadDatabase("/Users/cadenthun/Downloads/Unhinged/Members.txt");
+    AttValPair att("trait", "weak");
+    vector<string> b = a.FindMatchingMembers(att);
+    for (int i = 0; i < b.size(); i++)
+        cout << b[i] << endl;
+    
+    
+    
+    
     //PersonProfile tests
     /*
     PersonProfile testProf("Caden", "c@gmail.com");
@@ -121,6 +135,6 @@ int main()
     
     AttributeTranslator c;
     c.Load("/Users/cadenthun/Downloads/Unhinged/translator.txt");
-    listCompatiblePairs(c);
+ //   listCompatiblePairs(c);
    // c.FindCompatibleAttValPairs(const AttValPair& source)
 }
