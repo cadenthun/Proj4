@@ -23,6 +23,7 @@ private:
     std::string m_name;
     std::string m_email;
     RadixTree<std::string> m_pairs; //eventually this will have to be a radix tree
+    std::vector<std::string> m_keyContainer;
     bool pairNotPresent(const AttValPair& pair);
 };
 

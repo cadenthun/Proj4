@@ -1,11 +1,16 @@
+#include <iostream>
+#include <string>
+
 #include "PersonProfile.h"
 #include "provided.h"
+#include "RadixTree.h"
 
 
 PersonProfile::PersonProfile(std::string name, std::string email)
 {
     m_name = name;
     m_email = email;
+    m_numPairs = 0;
 }
 
 PersonProfile::~PersonProfile() //get rid of this if I don't end up defining it
@@ -29,7 +34,9 @@ void PersonProfile::AddAttValPair(const AttValPair& attval)
     {
         m_pairs.insert(attval.attribute, attval.value);
         m_numPairs ++;
+        m_keyContainer.push_back(attval.attribute);
     }
+    return;
 }
 
 
@@ -40,13 +47,26 @@ int PersonProfile::GetNumAttValPairs() const
 
 bool PersonProfile::GetAttVal(int attribute_num, AttValPair& attval) const
 {
-    return 8908098; //temp val so program will build
+    if (m_keyContainer.size() < 1)
+        return false;
+   
+    std::string* valuePtr = m_pairs.search(m_keyContainer[attribute_num]);
+    if (valuePtr == nullptr)
+        return false;
+    attval.attribute = m_keyContainer[attribute_num];
+    attval.value = *valuePtr;
+    
+    return true;
 }
 
 
 bool PersonProfile::pairNotPresent(const AttValPair& pair)
 {
-    if (m_pairs.search(pair.attribute) == nullptr)
+    std::string* returnVal = m_pairs.search(pair.attribute);
+    if (returnVal == nullptr)
         return true;
-    return false;
+    if (*returnVal == pair.attribute)
+        return false;
+    return true;
+    
 }

@@ -9,6 +9,18 @@
 #include <iostream>
 #include <string>
 #include <vector>
+using namespace std;
+
+void listCompatiblePairs(const AttributeTranslator& translator) { //get rid of this later
+ AttValPair att("hobby", "chess");
+ std::vector<AttValPair> result =
+ translator.FindCompatibleAttValPairs(att);
+if (!result.empty()) {
+ std::cout << "Compatible attributes and values:" << std::endl;
+ for (const auto& p: result)
+ std::cout << p.attribute << " -> " << p.value << std::endl;
+ }
+}
 
 /*
 const std::string MEMBERS_FILE    = "members.txt";
@@ -87,5 +99,28 @@ bool findMatches(const MemberDatabase& mdb, const AttributeTranslator& at)
 
 int main()
 {
-
+    //PersonProfile tests
+    /*
+    PersonProfile testProf("Caden", "c@gmail.com");
+    AttValPair pair1("favorite sport", "basketball");
+    AttValPair pair2("least favorite sport", "swimming");
+    AttValPair pair3("hobby", "reading");
+    testProf.AddAttValPair(pair1);
+    testProf.AddAttValPair(pair2);
+    testProf.AddAttValPair(pair3);
+    cout << "Number of Pairs: " << testProf.GetNumAttValPairs() << endl;
+    for (int k = 0; k != testProf.GetNumAttValPairs(); k++) {
+     AttValPair av;
+     testProf.GetAttVal(k, av);
+     cout << av.attribute << " -> " << av.value << std::endl;
+     }
+    AttValPair bv;
+    cout << testProf.GetAttVal(1, bv) << endl;
+    cout << bv.attribute << " -> " << bv.value << std::endl;
+     */
+    
+    AttributeTranslator c;
+    c.Load("/Users/cadenthun/Downloads/Unhinged/translator.txt");
+    listCompatiblePairs(c);
+   // c.FindCompatibleAttValPairs(const AttValPair& source)
 }

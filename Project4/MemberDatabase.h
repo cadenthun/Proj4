@@ -8,11 +8,14 @@
 
 class MemberDatabase
 {
+public:
     MemberDatabase();
     ~MemberDatabase(); //only if necessary
     bool LoadDatabase(std::string filename);
     std::vector<std::string> FindMatchingMembers(const AttValPair& input) const;
     const PersonProfile* GetMemberByEmail(std::string email) const;
+private:
+    
 };
 
 

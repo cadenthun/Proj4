@@ -1,6 +1,23 @@
-#ifndef AttributeTranslator_hpp
-#define AttributeTranslator_hpp
+#ifndef ATTRIBUTETRANSLATOR
+#define ATTRIBUTETRANSLATOR
 
-#include <stdio.h>
+#include <iostream>
+#include "provided.h"
+#include "RadixTree.h"
 
-#endif /* AttributeTranslator_hpp */
+class AttributeTranslator
+{
+public:
+    AttributeTranslator();
+    ~AttributeTranslator();
+    bool Load(std::string filename);
+    std::vector<AttValPair> FindCompatibleAttValPairs(const AttValPair& source) const;
+    
+private:
+    RadixTree<std::vector<AttValPair>> m_sourceToCompatibleMap;
+};
+
+
+
+
+#endif /* ATTRIBUTETRANSLATOR */
