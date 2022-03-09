@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector> // get rid of this after I implement the radix tree
+#include <set>
 #include "provided.h"
 #include "RadixTree.h" //will be necessary eventually
 
@@ -22,8 +23,9 @@ private:
     int m_numPairs;
     std::string m_name;
     std::string m_email;
-    RadixTree<std::string> m_pairs; //eventually this will have to be a radix tree
+    RadixTree<std::set<std::string>> m_pairs; //eventually this will have to be a radix tree
     std::vector<std::string> m_keyContainer;
+    std::vector<std::string> m_valueContainer;
     bool pairNotPresent(const AttValPair& pair);
 };
 
