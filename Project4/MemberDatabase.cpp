@@ -72,12 +72,13 @@ bool MemberDatabase::LoadDatabase(std::string filename)
         if (m_emailToPersonProfileMap.search(email) != nullptr)
             return false; //duplicate emails 
         
-        m_emailToPersonProfileMap.insert(email, pp);
+        m_emailToPersonProfileMap.insert(email, pp); 
         if (!getline(infile, line)) //should read in empty line, get ready for next profile to be processed
-            return false;
+            break;
         //code to process all attval pairs above
         
     }
+    return true;
 }
 
 std::vector<std::string> MemberDatabase::FindMatchingMembers(const AttValPair& input) const
