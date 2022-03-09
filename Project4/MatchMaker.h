@@ -16,9 +16,7 @@ public:
     std::vector<EmailCount> IdentifyRankedMatches(std::string email, int threshold) const;
 private:
     MemberDatabase m_database;
-    AttributeTranslator m_translator;
- //   std::vector<AttValPair> m_memberPairs;    
-    
+    AttributeTranslator m_translator;    
 };
 
 

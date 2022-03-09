@@ -54,7 +54,7 @@ std::vector<EmailCount> MatchMaker::IdentifyRankedMatches(std::string email, int
     }
     
     set<AttValPair>::iterator it;
-    for (it = compatiblePairs.begin(); it != compatiblePairs.end(); it++) //NOT 100% SURE THAT SYNTAX HERE IS CORRECT
+    for (it = compatiblePairs.begin(); it != compatiblePairs.end(); it++) 
     {
         vector<string> matchingMembers = m_database.FindMatchingMembers(*it);
         for (int i = 0; i < matchingMembers.size(); i++)
@@ -82,12 +82,6 @@ std::vector<EmailCount> MatchMaker::IdentifyRankedMatches(std::string email, int
     }
     
     sort(vectorOfEmailCounts.begin(), vectorOfEmailCounts.end());
-    /*
-    int indexOfLastMemberMeetingThreshold;
-    for (int i = 0; i < vectorOfEmailCounts.size(); i++) //identify the members who meet the threshold specified as an argument to function
-    {
-        if (vectorOfEmailCounts[i].count < threshold)
-            indexOfLastMemberMeetingThreshold = i - 1;
-    } */
+
     return vectorOfEmailCounts;
 }

@@ -11,9 +11,7 @@ using namespace std;
 
 
 AttributeTranslator::AttributeTranslator()
-{
-    
-}
+{}
 
 AttributeTranslator::~AttributeTranslator(){}
 
@@ -52,15 +50,10 @@ bool AttributeTranslator::Load(std::string filename)
             valueAtKey->insert(valueAtKey->end(), tempVec.begin(), tempVec.end());
 
         }
-        //HAVE TO CONTROL FOR DUPLICATES; NOT HANDLED AT THIS POINT WHATSOEVER
     }
     
     
     return true;
-    
-    //can call getline, get, other functions that can be called on a cin object
-    //can use substr, find
-        //  find gives position in the string (as an int) of the first occurrence of the char it is passed; could be useful for identifying where commas are, as commas separate each attribute/value
         
     
 }

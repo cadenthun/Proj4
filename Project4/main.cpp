@@ -25,7 +25,7 @@ if (!result.empty()) {
 
 
 
-const std::string MEMBERS_FILE    = "/Users/cadenthun/Downloads/Unhinged/Members.txt";
+const std::string MEMBERS_FILE    = "/Users/cadenthun/Downloads/Unhinged/members.txt";
 const std::string TRANSLATOR_FILE = "/Users/cadenthun/Downloads/Unhinged/translator.txt";
 
 bool findMatches(const MemberDatabase& mdb, const AttributeTranslator& at);
