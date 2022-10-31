@@ -1,65 +1,4 @@
 
- #ifndef RADIXTREE
- #define RADIXTREE
-
- #include <iostream>
- #include <string>
- #include <map>
-
- template <typename ValueType>
- class RadixTree {
-     
- public:
-  RadixTree();
-  ~RadixTree();
- void insert(std::string key, const ValueType& value);
- ValueType* search(std::string key) const;
-     
- private:
-     std::map<std::string, ValueType> dummyTree;
- };
-
- template <typename ValueType>
- RadixTree<ValueType>::RadixTree()
- {
-     
- }
-
- template <typename ValueType>
- RadixTree<ValueType>::~RadixTree()
- {
- }
-
-
- template <typename ValueType>
- void RadixTree<ValueType>::insert(std::string key, const ValueType &value)
- {
-     if (dummyTree.find(key) != dummyTree.end())
-         dummyTree.erase(key);
-     dummyTree.insert({key, value});
- }
-
- template <typename ValueType>
- ValueType* RadixTree<ValueType>::search(std::string key) const
- {
-     typename std::map<std::string, ValueType>::const_iterator it;
-
-
-     it = dummyTree.find(key);
-     if (it != dummyTree.end())
-     {
-         return const_cast<ValueType*>(&(it->second));
-     }
-     
-     return nullptr; //couldn't find key in map
- }
-
- #endif // RADIXTREE
- 
-
-
-
-/*
 #ifndef RADIXTREE
 #define RADIXTREE
 
@@ -125,10 +64,6 @@ RadixTree<ValueType>::RadixTree()
 }
 
 template <typename ValueType>
-RadixTree<ValueType>::~RadixTree(){}
-
-
-template <typename ValueType>
 RadixTree<ValueType>::~RadixTree()
 {
     for (int i = 0; i < 128; i++)
@@ -138,24 +73,22 @@ RadixTree<ValueType>::~RadixTree()
     }
 }
 
-
-
 template <typename ValueType>
 void RadixTree<ValueType>::destroyNode(Node* node)
 {
+    bool leafNode = true;
     for (int i = 0; i < 128; i++)
     {
         if (node->edges[i] != nullptr)
         {
             destroyNode(node->edges[i]);
+            leafNode = false;
         }
     }
     delete node;
+    std::cerr << "grrrr" << std::endl;
+
 }
-
-
-
-
 
 template <typename ValueType>
 void RadixTree<ValueType>::insert(std::string key, const ValueType &value)
@@ -172,9 +105,7 @@ void RadixTree<ValueType>::insert(std::string key, const ValueType &value)
     {
         m_currNode = m_root[remainingString[0]];
         insertBeyondRoot(m_currNode, remainingString, value);
-       
     }
-    
 }
 
 //function to insert pair when no more prefixes remain in tree
@@ -190,6 +121,21 @@ template <typename ValueType>
 void RadixTree<ValueType>::insertBeyondRoot(Node* currentNode, std::string& remainingString, ValueType valueCopy)
 {
     Node* currNode = currentNode;
+    
+    /*
+    if (remainingString.size() == 1)
+    {
+        if (currNode->nString == "" || remainingString[0] != currNode->nString[0])
+        {
+            if (currNode->edges[remainingString[0]] == nullptr)
+            {
+                currNode->edges[remainingString[0]] = new Node("", valueCopy);
+             //   insertNoMorePrefixes(currNode->edges, remainingString[0], remainingString, valueCopy);
+
+            }
+        }
+    }
+    */
     
     remainingString.erase(0, 1);
     
@@ -259,7 +205,7 @@ void RadixTree<ValueType>::insertBeyondRoot(Node* currentNode, std::string& rema
             std::string excessnStringCopy = excessnString; //to have access to value as it is after insertNoMorePrefixes func. changes it
             
             std::string newNString = oldNString;
-            newNString.erase(i, oldNString.size() - i);
+            newNString.erase(i, oldNString.size() - i); 
             currNode->nString = newNString;
             
             ValueType tempVal = currNode->nValue;
@@ -276,14 +222,21 @@ void RadixTree<ValueType>::insertBeyondRoot(Node* currentNode, std::string& rema
         }
         
         //prefix included fully in remaining string but remaining string extends beyond prefix
-        if (remainingString.size() > 0 && currNode->nString.size() == i) //SHOULD IT BE <= I? <I?
+        if (remainingString.size() > 0 && currNode->nString.size() == i) 
         {
+            if (currNode->nString == "")
+            {
+                insertBeyondRoot(currNode, remainingString, valueCopy);
+            return;
+            }
             if (currNode->edges[remainingString[0]] == nullptr)
             {
                 char tempChar = remainingString.at(0);
                 remainingString.erase(0, 1);
-                currNode->edges[tempChar] = new Node(remainingString, valueCopy); //NEW
-              //  insertBeyondRoot(currNode->edges[remainingString[0]], remainingString, valueCopy);
+                if (remainingString.size() > 1)
+                    currNode->edges[tempChar] = new Node(remainingString, valueCopy); //NEW
+                if (remainingString.size() == 1)
+                    currNode->edges[remainingString[0]] = new Node("", valueCopy);
                 return;
             }
             insertBeyondRoot(currNode->edges[remainingString[0]], remainingString, valueCopy);
@@ -395,5 +348,3 @@ ValueType* RadixTree<ValueType>::search(std::string key) const
 }
 
 #endif //RADIXTREE
-
-*/
